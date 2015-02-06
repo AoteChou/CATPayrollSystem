@@ -44,6 +44,10 @@ public class JuniorDeveloperOverTimeRule extends PostingRule {
         currAccount.getAccountEntries().add(myEntry);
         
         currEvent.getAccountingEntries().add(myEntry);
+        System.out.println(myEntry.getAmount());
+        System.out.println(myEntry.getEntryTime().toString());
+        System.out.println(myEntry.getEventTime().toString());
+        System.out.println(myEntry.getEmployee().getName());
         
         
     }

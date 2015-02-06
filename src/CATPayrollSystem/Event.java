@@ -31,7 +31,7 @@ public class Event {
         this.employee = employee;
         this.accountingEntries = new ArrayList<Entry>();
     }
-    /*    
+       
     public void process(){
         findRule().createEntry(this);//Execute the posting rule
     }
@@ -41,7 +41,6 @@ public class Event {
         if(rule == null) throw new NullPointerException("not such rule for this event, your wrong");
         return rule;
     }
-*/
     public EventType getEventType() {
         return eventType;
     }
@@ -75,6 +74,7 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" + "eventType=" + eventType + ", eventDate=" + eventDate + ", employee=" + employee + ", isProcessed=" + isProcessed + '}';
+    }
     /**
      * @return the accountingEntries
      */

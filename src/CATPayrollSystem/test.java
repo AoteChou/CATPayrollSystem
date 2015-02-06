@@ -23,7 +23,7 @@ public class test {
         accountList.add(new Account(1111, 0));
         
         
-        Employee casey=new Employee("Casey", caseyAgreement,accountList);
+        Employee casey=new Employee(11,"Casey", caseyAgreement,accountList);
         WorkingEvent myWorkingEvent=new WorkingEvent(EventType.JuniorRegularHours, new Date(), casey, 10);
         
         

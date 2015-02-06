@@ -18,10 +18,12 @@ public class Employee {
     private int employeeId;
     private String name;
     private Agreement agreement;
+    //TODO:delete it!!!
     private List<Entry> accountingEntries; 
     private List<Account> employeeAccountsList;
 
-    public Employee(String name, Agreement agreement, List<Account> employeeAccountsList) {
+    public Employee(int employeeId,String name, Agreement agreement, List<Account> employeeAccountsList) {
+        this.employeeId=employeeId;
         this.name = name;
         this.agreement = agreement;
         this.employeeAccountsList=employeeAccountsList;
@@ -71,6 +73,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" + "name=" + name + '}';
+    }
     /**
      * @return the employeeAccountsList
      */

@@ -5,14 +5,21 @@
  */
 package View;
 
+import CATPayrollSystem.Account;
+import CATPayrollSystem.Agreement;
 import CATPayrollSystem.Employee;
+import CATPayrollSystem.Entry;
 import CATPayrollSystem.EventType;
+import CATPayrollSystem.JuniorDeveloperOverTimeRule;
+import CATPayrollSystem.JuniorDeveloperRegularTimeRule;
 import CATPayrollSystem.WorkingEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,8 +32,22 @@ public class CATPayroll {
 
 
     private static void initializeData() {
-        employees.put(1, new Employee(1, "Casey", null));
-        employees.put(2, new Employee(1, "Fadi", null));
+        
+        Agreement caseyAgreement=new Agreement();
+        caseyAgreement.getPostingRulesList().add(new JuniorDeveloperOverTimeRule());
+        caseyAgreement.getPostingRulesList().add(new JuniorDeveloperRegularTimeRule());
+        List<Account> caseyAccountList=new ArrayList<Account>();
+        caseyAccountList.add(new Account(1111, 0));
+        
+        Agreement fadiAgreement=new Agreement();
+        fadiAgreement.getPostingRulesList().add(new JuniorDeveloperRegularTimeRule());
+        
+        List<Account> fadiAccountList=new ArrayList<Account>();
+        fadiAccountList.add(new Account(2222, 0));
+        
+        employees.put(1, new Employee(1, "Casey", caseyAgreement,caseyAccountList));
+        employees.put(2, new Employee(1, "Fadi", fadiAgreement,fadiAccountList));
+       
     }
     
     private void consoleUI() throws IOException, Exception{                
@@ -68,7 +89,7 @@ public class CATPayroll {
                     WorkingEvent event;
                     
                     event = createEvent(workingHours, employee);
-                    //event.process();
+                    event.process();
 
                     System.out.println(event);
 
@@ -77,7 +98,19 @@ public class CATPayroll {
                     System.out.println("Hours entered invalid");
                     return;
                 }
-            } 
+            } else if (option.equals("2")) {
+                ArrayList<Account> myAccounts=(ArrayList)employees.get(1).getEmployeeAccountsList();
+                for(Account myAccount:myAccounts){
+                    for(Entry myEntry:myAccount.getAccountEntries()){
+                        System.out.println(myEntry.getAmount());
+                        System.out.println(myEntry.getEntryTime().toString());
+                        System.out.println(myEntry.getEventTime().toString());
+                        System.out.println(myEntry.getEmployee().getName());
+                    }
+                    
+                }
+                
+            }
             
             else if(option.equals("E")){
                return;
@@ -111,9 +144,9 @@ public class CATPayroll {
     private WorkingEvent createEvent(int workingHours, Employee employee) throws Exception {
         WorkingEvent event;
         if(workingHours>8){
-            return event = new WorkingEvent(EventType.OvertimeHours, Calendar.getInstance().getTime(), employee, workingHours);
+            return event = new WorkingEvent(EventType.JuniorOvertimeHours, Calendar.getInstance().getTime(), employee, workingHours);
         }else if (workingHours<=8){
-            return event = new WorkingEvent(EventType.RegularHours, Calendar.getInstance().getTime(), employee, workingHours);
+            return event = new WorkingEvent(EventType.JuniorRegularHours, Calendar.getInstance().getTime(), employee, workingHours);
         }else{
             throw new Exception("Bad working hours");
         }
