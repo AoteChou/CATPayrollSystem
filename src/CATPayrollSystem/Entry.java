@@ -12,17 +12,67 @@ import java.util.Date;
  * @author eddychou
  */
 public class Entry {
+    private Double amount;
+    private Date entryTime;
+    private Employee employee;
+    private Date eventTime;
 
-    void setAmount(double hours) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * @return the ammount
+     */
+    public Double getAmount() {
+        return amount;
     }
 
-    void setEntryTime(Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * @param amount the ammount to set
+     */
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
-    void setEmployee(Employee currEmployee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    /**
+     * @return the entryTime
+     */
+    public Date getEntryTime() {
+        return entryTime;
     }
+
+    /**
+     * @param entryTime the entryTime to set
+     */
+    public void setEntryTime(Date entryTime) {
+        this.entryTime = entryTime;
+    }
+
+    /**
+     * @return the employee
+     */
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    /**
+     * @param employee the employee to set
+     */
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    /**
+     * @return the eventTime
+     */
+    public Date getEventTime() {
+        return eventTime;
+    }
+
+    /**
+     * @param eventTime the eventTime to set
+     */
+    public void setEventTime(Date eventTime) {
+        this.eventTime = eventTime;
+    }
+    
+    
     
 }

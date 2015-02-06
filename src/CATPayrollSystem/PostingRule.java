@@ -10,9 +10,23 @@ package CATPayrollSystem;
  * @author eddychou
  */
 public abstract class PostingRule {
-    EventType eventType;
+    protected EventType eventType;
     
     public abstract void createEntry(Event event);
     
     public abstract double calculateAmount(double hours);
+
+    /**
+     * @return the eventType
+     */
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    /**
+     * @param eventType the eventType to set
+     */
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
 }

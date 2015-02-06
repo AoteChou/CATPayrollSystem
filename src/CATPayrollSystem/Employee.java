@@ -13,25 +13,21 @@ import java.util.List;
  */
 public class Employee {
 
-    Account getAccount(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
     
     private String name;
-    private String position;
     private Agreement agreement;
     private List<Entry> accountingEntries; 
+    private List<Account> employeeAccountsList;
 
-    public Employee(String name, String position, Agreement agreement) {
-        this.name = name;
-        this.position = position;
-        this.agreement = agreement;
-    }
-
-    public Employee(String name, Agreement agreement) {
+    public Employee(String name, Agreement agreement, List<Account> employeeAccountsList) {
         this.name = name;
         this.agreement = agreement;
+        this.employeeAccountsList=employeeAccountsList;
+        
     }
+
+    
 
     public Agreement getAgreement() {
         return agreement;
@@ -49,13 +45,7 @@ public class Employee {
         this.name = name;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
+   
 
     public List<Entry> getAccountingEntries() {
         return accountingEntries;
@@ -67,6 +57,24 @@ public class Employee {
     
     public void addAccountingEntries(Entry accountingEntry) {
         accountingEntries.add(accountingEntry);
+    }
+
+    /**
+     * @return the employeeAccountsList
+     */
+    public List<Account> getEmployeeAccountsList() {
+        return employeeAccountsList;
+    }
+
+    /**
+     * @param employeeAccountsList the employeeAccountsList to set
+     */
+    public void setEmployeeAccountsList(List<Account> employeeAccountsList) {
+        this.employeeAccountsList = employeeAccountsList;
+    }
+    
+     Account getAccount(int i) {
+        return employeeAccountsList.get(i);
     }
     
 }

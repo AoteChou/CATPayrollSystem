@@ -5,6 +5,7 @@
  */
 package CATPayrollSystem;
 
+import apple.laf.JRSUIConstants;
 import java.util.Date;
 
 /**
@@ -14,7 +15,14 @@ import java.util.Date;
 public class JuniorDeveloperRegularTimeRule extends PostingRule {
 
     public static double juniorRegularRate;
+
+    public JuniorDeveloperRegularTimeRule() {
+        super();
+        eventType = EventType.JuniorRegularHours;
+        juniorRegularRate = 5;
+    }
    
+    
     @Override
     public double calculateAmount(double hours) 
     {
@@ -25,14 +33,22 @@ public class JuniorDeveloperRegularTimeRule extends PostingRule {
     public void createEntry(Event currEvent) {
         
         Employee currEmployee = currEvent.getEmployee();
-        double currHours = currEvent.getHours();
+        double currHours = ((WorkingEvent) currEvent).getWorkingHours();
         Entry myEntry = new Entry();
         myEntry.setEntryTime(new Date());
-        myEntry.setEventTime(currEvent.getDate());
+        myEntry.setEventTime(currEvent.getEventDate());
         myEntry.setEmployee(currEmployee);
         myEntry.setAmount(calculateAmount(currHours));
-        Account currAccount = currEmployee.getAccount(1);
+        
+        Account currAccount = currEmployee.getAccount(0);
         currAccount.getAccountEntries().add(myEntry);
+        
+        currEvent.getAccountingEntries().add(myEntry);
+        System.out.println(myEntry.getAmount());
+        System.out.println(myEntry.getEntryTime().toString());
+        System.out.println(myEntry.getEventTime().toString());
+        System.out.println(myEntry.getEmployee().getName());
+        
         
         
     }

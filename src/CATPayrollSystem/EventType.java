@@ -10,8 +10,12 @@ package CATPayrollSystem;
  * @author eddychou
  */
 public enum EventType {
-    RegularHours,
-    OvertimeHours,
-    BonusPayment;
+    SeniorRegularHours,
+    SeniorOvertimeHours,
+    SeniorBonusPayment,
+    JuniorRegularHours,
+    JuniorOvertimeHours,
+    JuniorBonusPayment;
+    
    
 }
