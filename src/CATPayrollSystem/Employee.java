@@ -15,6 +15,7 @@ public class Employee {
 
    
     
+    private int employeeId;
     private String name;
     private Agreement agreement;
     private List<Entry> accountingEntries; 
@@ -59,6 +60,17 @@ public class Employee {
         accountingEntries.add(accountingEntry);
     }
 
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "name=" + name + '}';
     /**
      * @return the employeeAccountsList
      */
