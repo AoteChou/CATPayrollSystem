@@ -5,10 +5,26 @@
  */
 package CATPayrollSystem;
 
+import java.util.Date;
+
 /**
  *
  * @author eddychou
  */
-public class WorkingEvent {
+public class WorkingEvent extends Event{
+    private int workingHours;
+
+    public WorkingEvent(EventType eventType, Date eventDate, Employee employee, int workingHours) {
+        super(eventType, eventDate, employee);
+        this.workingHours = workingHours;
+    }
+
+    public int getWorkingHours() {
+        return workingHours;
+    }
+
+    public void setWorkingHours(int workingHours) {
+        this.workingHours = workingHours;
+    }
     
 }

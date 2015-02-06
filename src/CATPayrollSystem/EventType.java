@@ -11,6 +11,7 @@ package CATPayrollSystem;
  */
 public enum EventType {
     RegularHours,
-    OvertimeHours;
+    OvertimeHours,
+    BonusPayment;
    
 }
