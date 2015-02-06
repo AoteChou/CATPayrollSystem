@@ -5,10 +5,27 @@
  */
 package CATPayrollSystem;
 
+import java.util.Date;
+
 /**
  *
  * @author eddychou
  */
-public class BonusPaymentEvent {
+public class BonusPaymentEvent extends Event{
+
+    private double bonusPaid;
+    
+    public BonusPaymentEvent(EventType eventType, Date eventDate, Employee employee, double bonusPaid) {
+        super(eventType, eventDate, employee);
+        this.bonusPaid = bonusPaid;
+    }
+
+    public double getBonusPaid() {
+        return bonusPaid;
+    }
+
+    public void setBonusPaid(double bonusPaid) {
+        this.bonusPaid = bonusPaid;
+    }
     
 }
