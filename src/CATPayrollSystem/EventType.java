@@ -9,6 +9,8 @@ package CATPayrollSystem;
  *
  * @author eddychou
  */
-public class EventType {
-    
+public enum EventType {
+    RegularHours,
+    OvertimeHours;
+   
 }
