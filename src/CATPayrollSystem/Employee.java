@@ -13,18 +13,21 @@ import java.util.List;
  */
 public class Employee {
     
+    private int employeeId;
     private String name;
     private String position;
     private Agreement agreement;
     private List<Entry> accountingEntries; 
 
-    public Employee(String name, String position, Agreement agreement) {
+    public Employee(int employeeId, String name, String position, Agreement agreement) {
+        this.employeeId = employeeId;
         this.name = name;
         this.position = position;
         this.agreement = agreement;
     }
 
-    public Employee(String name, Agreement agreement) {
+    public Employee(int employeeId, String name, Agreement agreement) {
+        this.employeeId = employeeId;
         this.name = name;
         this.agreement = agreement;
     }
@@ -63,6 +66,19 @@ public class Employee {
     
     public void addAccountingEntries(Entry accountingEntry) {
         accountingEntries.add(accountingEntry);
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "name=" + name + '}';
     }
     
 }

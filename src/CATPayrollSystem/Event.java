@@ -26,7 +26,7 @@ public class Event {
         this.eventDate = eventDate;
         this.employee = employee;
     }
-        
+    /*    
     public void process(){
         findRule().process(this);//Execute the posting rule
     }
@@ -36,7 +36,7 @@ public class Event {
         if(rule == null) throw new NullPointerException("not such rule for this event, your wrong");
         return rule;
     }
-
+*/
     public EventType getEventType() {
         return eventType;
     }
@@ -67,6 +67,11 @@ public class Event {
 
     public void setIsProcessed(boolean isProcessed) {
         this.isProcessed = isProcessed;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" + "eventType=" + eventType + ", eventDate=" + eventDate + ", employee=" + employee + ", isProcessed=" + isProcessed + '}';
     }
     
    
