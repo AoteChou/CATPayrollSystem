@@ -11,9 +11,12 @@ package CATPayrollSystem;
  */
 public class SeniorDeveloperRegularTimeRule extends PostingRule {
 
+    public static double seniorOverTimeRate;
     @Override
-    public double calculateAmount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public double calculateAmount(double hours) 
+    {
+        return hours * seniorOverTimeRate;
     }
-    
+
+   
 }

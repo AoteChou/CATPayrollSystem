@@ -11,12 +11,8 @@ package CATPayrollSystem;
  */
 public abstract class PostingRule {
     EventType eventType;
-    double salary;
     
-    public void createEntry()
-    {
-        
-    }
+    public abstract void createEntry(Event event);
     
-    public abstract double calculateAmount();
+    public abstract double calculateAmount(double hours);
 }

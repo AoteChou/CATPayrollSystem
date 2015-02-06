@@ -10,5 +10,9 @@ package CATPayrollSystem;
  * @author eddychou
  */
 public class Employee {
+
+    Account getAccount(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
