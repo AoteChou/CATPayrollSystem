@@ -72,7 +72,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" + "name=" + name + '}';
+        return employeeId + " - " + name + "";
     }
     /**
      * @return the employeeAccountsList

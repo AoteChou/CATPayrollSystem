@@ -16,7 +16,7 @@ public class SeniorDeveloperOverTimeRule extends PostingRule {
     public static double seniorOverTimeRate;
 
     public SeniorDeveloperOverTimeRule() {
-        eventType = EventType.SeniorOvertimeHours;
+        eventType = EventType.OvertimeHours;
         seniorOverTimeRate= 20;
     }
     
@@ -36,13 +36,17 @@ public class SeniorDeveloperOverTimeRule extends PostingRule {
         myEntry.setEventTime(currEvent.getEventDate());
         myEntry.setEmployee(currEmployee);
         myEntry.setAmount(calculateAmount(currHours));
+        myEntry.setEventType(eventType);
         
         Account currAccount = currEmployee.getAccount(0);
         currAccount.getAccountEntries().add(myEntry);
         
         currEvent.getAccountingEntries().add(myEntry);
         
-        
+        System.out.print(myEntry.getEmployee().getName()+": ");
+        System.out.println(myEntry.getAmount());
+        System.out.println(TimeParser.parseTime(myEntry.getEntryTime()));
+        System.out.println(TimeParser.parseTime(myEntry.getEventTime()));
     }
 
 

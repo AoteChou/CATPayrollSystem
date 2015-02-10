@@ -18,7 +18,7 @@ public class JuniorDeveloperRegularTimeRule extends PostingRule {
 
     public JuniorDeveloperRegularTimeRule() {
         super();
-        eventType = EventType.JuniorRegularHours;
+        eventType = EventType.RegularHours;
         juniorRegularRate = 5;
     }
    
@@ -39,15 +39,16 @@ public class JuniorDeveloperRegularTimeRule extends PostingRule {
         myEntry.setEventTime(currEvent.getEventDate());
         myEntry.setEmployee(currEmployee);
         myEntry.setAmount(calculateAmount(currHours));
+        myEntry.setEventType(eventType);
         
         Account currAccount = currEmployee.getAccount(0);
         currAccount.getAccountEntries().add(myEntry);
         
         currEvent.getAccountingEntries().add(myEntry);
+        System.out.print(myEntry.getEmployee().getName()+": ");
         System.out.println(myEntry.getAmount());
-        System.out.println(myEntry.getEntryTime().toString());
-        System.out.println(myEntry.getEventTime().toString());
-        System.out.println(myEntry.getEmployee().getName());
+        System.out.println(TimeParser.parseTime(myEntry.getEntryTime()));
+        System.out.println(TimeParser.parseTime(myEntry.getEventTime()));
         
         
         

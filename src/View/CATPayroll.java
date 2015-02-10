@@ -12,6 +12,7 @@ import CATPayrollSystem.Entry;
 import CATPayrollSystem.EventType;
 import CATPayrollSystem.JuniorDeveloperOverTimeRule;
 import CATPayrollSystem.JuniorDeveloperRegularTimeRule;
+import CATPayrollSystem.TimeParser;
 import CATPayrollSystem.WorkingEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -102,10 +103,10 @@ public class CATPayroll {
                 ArrayList<Account> myAccounts=(ArrayList)employees.get(1).getEmployeeAccountsList();
                 for(Account myAccount:myAccounts){
                     for(Entry myEntry:myAccount.getAccountEntries()){
+                        System.out.print(myEntry.getEmployee().getName()+": ");
                         System.out.println(myEntry.getAmount());
-                        System.out.println(myEntry.getEntryTime().toString());
-                        System.out.println(myEntry.getEventTime().toString());
-                        System.out.println(myEntry.getEmployee().getName());
+                        System.out.println(TimeParser.parseTime(myEntry.getEntryTime()));
+                        System.out.println(TimeParser.parseTime(myEntry.getEventTime()));
                     }
                     
                 }
@@ -144,9 +145,9 @@ public class CATPayroll {
     private WorkingEvent createEvent(int workingHours, Employee employee) throws Exception {
         WorkingEvent event;
         if(workingHours>8){
-            return event = new WorkingEvent(EventType.JuniorOvertimeHours, Calendar.getInstance().getTime(), employee, workingHours);
+            return event = new WorkingEvent(EventType.OvertimeHours, Calendar.getInstance().getTime(), employee, workingHours);
         }else if (workingHours<=8){
-            return event = new WorkingEvent(EventType.JuniorRegularHours, Calendar.getInstance().getTime(), employee, workingHours);
+            return event = new WorkingEvent(EventType.RegularHours, Calendar.getInstance().getTime(), employee, workingHours);
         }else{
             throw new Exception("Bad working hours");
         }

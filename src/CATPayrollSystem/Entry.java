@@ -16,6 +16,20 @@ public class Entry {
     private Date entryTime;
     private Employee employee;
     private Date eventTime;
+    private EventType eventType;
+
+    public Entry() {
+    }
+
+    
+    public Entry(Double amount, Date entryTime, Employee employee, Date eventTime, EventType evnetType) {
+        this.amount = amount;
+        this.entryTime = entryTime;
+        this.employee = employee;
+        this.eventTime = eventTime;
+        this.eventType = eventType;
+        
+    }
 
     /**
      * @return the ammount
@@ -71,6 +85,20 @@ public class Entry {
      */
     public void setEventTime(Date eventTime) {
         this.eventTime = eventTime;
+    }
+
+    /**
+     * @return the eventType
+     */
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    /**
+     * @param eventType the eventType to set
+     */
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
     }
     
     

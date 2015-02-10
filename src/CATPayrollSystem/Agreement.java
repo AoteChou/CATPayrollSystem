@@ -39,6 +39,7 @@ public class Agreement {
                 return currPostingRule;
             }
         }
+        
         return null;
     }
 }

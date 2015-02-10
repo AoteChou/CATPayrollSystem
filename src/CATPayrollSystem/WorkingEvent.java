@@ -12,14 +12,14 @@ import java.util.Date;
  * @author eddychou
  */
 public class WorkingEvent extends Event{
-    private int workingHours;
+    private double workingHours;
 
-    public WorkingEvent(EventType eventType, Date eventDate, Employee employee, int workingHours) {
+    public WorkingEvent(EventType eventType, Date eventDate, Employee employee, double workingHours) {
         super(eventType, eventDate, employee);
         this.workingHours = workingHours;
     }
 
-    public int getWorkingHours() {
+    public double getWorkingHours() {
         return workingHours;
     }
 
