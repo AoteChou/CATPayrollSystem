@@ -7,6 +7,8 @@ package View;
 
 import CATPayrollSystem.Account;
 import CATPayrollSystem.Agreement;
+import CATPayrollSystem.BonusPaymentEvent;
+import CATPayrollSystem.BonusRule;
 import CATPayrollSystem.Employee;
 import CATPayrollSystem.Entry;
 import CATPayrollSystem.Event;
@@ -18,6 +20,8 @@ import CATPayrollSystem.SeniorDeveloperRegularTimeRule;
 import CATPayrollSystem.TimeParser;
 import CATPayrollSystem.WorkingEvent;
 import static View.CATPayroll.employees;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -41,42 +45,42 @@ public class CATPayrollView extends javax.swing.JFrame {
     /**
      * Creates new form CATPayrollView
      */
-    
     //public static Map<Integer,Employee> employees = new HashMap<Integer,Employee>();
     public DefaultComboBoxModel employeeCBModel = new DefaultComboBoxModel<Employee>();
-    
+
     private void initializeData() {
-                
-        
-        Agreement caseyAgreement=new Agreement();
+
+        Agreement caseyAgreement = new Agreement();
         caseyAgreement.getPostingRulesList().add(new JuniorDeveloperOverTimeRule());
         caseyAgreement.getPostingRulesList().add(new JuniorDeveloperRegularTimeRule());
-        List<Account> caseyAccountList=new ArrayList<Account>();
+        caseyAgreement.getPostingRulesList().add(new BonusRule());
+        List<Account> caseyAccountList = new ArrayList<Account>();
         caseyAccountList.add(new Account(1111, 0));
-        
-        Agreement fadiAgreement=new Agreement();
+
+        Agreement fadiAgreement = new Agreement();
         fadiAgreement.getPostingRulesList().add(new SeniorDeveloperRegularTimeRule());
         fadiAgreement.getPostingRulesList().add(new SeniorDeveloperOverTimeRule());
+        fadiAgreement.getPostingRulesList().add(new BonusRule());
 
-        
-        List<Account> fadiAccountList=new ArrayList<Account>();
+        List<Account> fadiAccountList = new ArrayList<Account>();
         fadiAccountList.add(new Account(2222, 0));
-        
+
         //employees.put(1, new Employee(1, "Casey", caseyAgreement,caseyAccountList));
         //employees.put(2, new Employee(2, "Fadi", fadiAgreement,fadiAccountList));
-       
-        employeeCBModel.addElement(new Employee(1, "Casey", caseyAgreement,caseyAccountList));
-        employeeCBModel.addElement(new Employee(2, "Fadi", fadiAgreement,fadiAccountList));
+        employeeCBModel.addElement(new Employee(1, "Casey", caseyAgreement, caseyAccountList));
+        employeeCBModel.addElement(new Employee(2, "Fadi", fadiAgreement, fadiAccountList));
 
-        
         employeeIDCombobox.setModel(employeeCBModel);
 
     }
-    
-    
+
     public CATPayrollView() {
         initComponents();
         initializeData();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth();
+        double height = screenSize.getHeight();
+        setSize((int)width, (int)height);
     }
 
     /**
@@ -88,6 +92,7 @@ public class CATPayrollView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        seniorDeveloperOverTimeRule1 = new CATPayrollSystem.SeniorDeveloperOverTimeRule();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         eventTypeComboBox = new javax.swing.JComboBox();
@@ -109,10 +114,17 @@ public class CATPayrollView extends javax.swing.JFrame {
         entryLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         aggregatedEntryList = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        totalAmountLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        eventTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Working Hours", "Bonus Payment", "Item 3", "Item 4" }));
+        eventTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Working Hours", "Bonus Payment"}));
+        eventTypeComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                eventTypeComboBoxItemStateChanged(evt);
+            }
+        });
         eventTypeComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eventTypeComboBoxActionPerformed(evt);
@@ -143,7 +155,7 @@ public class CATPayrollView extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jLabel5.setText("Employee ID");
+        jLabel5.setText("Employee");
 
         employeeIDCombobox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "101", "102", "103", "104", "105", "201","202","203","204", "205","206" }));
         employeeIDCombobox.addActionListener(new java.awt.event.ActionListener() {
@@ -225,7 +237,7 @@ public class CATPayrollView extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Employee ID", "Amount", "Entry Time", "Event Time", "Event Type"
+                "Employee ID", "Amount(£)", "Entry Time", "Event Time", "Event Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -245,7 +257,7 @@ public class CATPayrollView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(entryLabel)
-                .addContainerGap(503, Short.MAX_VALUE))
+                .addContainerGap(537, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
@@ -281,7 +293,7 @@ public class CATPayrollView extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Employee ID", "Amount", "Entry Time", "Event Time"
+                "Employee ID", "Amount(£)", "Entry Time", "Event Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -301,7 +313,7 @@ public class CATPayrollView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(entryLabel1)
-                .addContainerGap(515, Short.MAX_VALUE))
+                .addContainerGap(549, Short.MAX_VALUE))
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel3Layout.setVerticalGroup(
@@ -338,7 +350,7 @@ public class CATPayrollView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(112, 112, 112)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(468, Short.MAX_VALUE))
+                .addContainerGap(502, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
@@ -374,6 +386,8 @@ public class CATPayrollView extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
+        jLabel1.setText("Total Salary (£):");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -381,10 +395,22 @@ public class CATPayrollView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addComponent(totalAmountLabel)
+                .addGap(114, 114, 114))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(totalAmountLabel))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
@@ -392,98 +418,209 @@ public class CATPayrollView extends javax.swing.JFrame {
 
     private void eventTypeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventTypeComboBoxActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_eventTypeComboBoxActionPerformed
 
     private void hourWorkedTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hourWorkedTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_hourWorkedTextFieldActionPerformed
 
-    private ArrayList<Event> createEvent(double workingHours, Employee employee) throws Exception {
-        ArrayList<Event> events= new ArrayList<Event>();
-        if(workingHours>8){
-            
-            Event tempEvent = new WorkingEvent(EventType.OvertimeHours, Calendar.getInstance().getTime(), employee, workingHours-8);
+    private ArrayList<Event> createWorkingEvent(double workingHours, Employee employee) throws Exception {
+        ArrayList<Event> events = new ArrayList<Event>();
+        if (workingHours > 8) {
+
+            Event tempEvent = new WorkingEvent(EventType.OvertimeHours, Calendar.getInstance().getTime(), employee, workingHours - 8);
             events.add(tempEvent);
-            tempEvent = new WorkingEvent(EventType.RegularHours, Calendar.getInstance().getTime(), employee, 8); 
+            tempEvent = new WorkingEvent(EventType.RegularHours, Calendar.getInstance().getTime(), employee, 8);
             events.add(tempEvent);
-            
+
             return events;
-        }else if (workingHours<=8){
+        } else if (workingHours <= 8) {
             Event tempEvent = new WorkingEvent(EventType.RegularHours, Calendar.getInstance().getTime(), employee, workingHours);
             events.add(tempEvent);
-            
+
             return events;
-        }else{
+        } else {
             throw new Exception("Bad working hours");
         }
     }
-    
+
+    private ArrayList<Event> createBonusEvent(double bonusAmnous, Employee employee) throws Exception {
+        ArrayList<Event> events = new ArrayList<Event>();
+        Event tempEvent = new BonusPaymentEvent(Calendar.getInstance().getTime(), employee, bonusAmnous);
+        events.add(tempEvent);
+
+        return events;
+    }
+
     private void simulateEventButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simulateEventButtonActionPerformed
 
+        String eventString = eventTypeComboBox.getSelectedItem().toString();
+        if (eventString == "Working Hours") {
+            performWorkingEvent();
+        } else if (eventString == "Bonus Payment") {
+            performBonusEvent();
+        }
+
+
+    }//GEN-LAST:event_simulateEventButtonActionPerformed
+
+    private void performWorkingEvent() {
+        double totalAmount =0.0; 
         try {
             // TODO add your handling code here:
-            ArrayList<Event> events = createEvent(Double.parseDouble(hourWorkedTextField.getText()), (Employee) employeeIDCombobox.getSelectedItem());
+            Double workingHours = Double.parseDouble(hourWorkedTextField.getText());
+            Double regularHours=0.0;
+            Double overtimeHours=0.0;
+
+            if (workingHours > 8) {
+                regularHours = 8.0;
+                overtimeHours = workingHours - 8;
+            } else {
+                regularHours = workingHours;
+            }
+
+            ArrayList<Event> events = createWorkingEvent(workingHours, (Employee) employeeIDCombobox.getSelectedItem());
             ArrayList<Entry> resultingEntriesofAllEvents = new ArrayList<Entry>();
 
-            for ( Event event : events ){
-                
+            for (Event event : events) {
+
                 event.process();
-                ArrayList<Entry> resultingEntries = (ArrayList<Entry>)event.getAccountingEntries();
+                ArrayList<Entry> resultingEntries = (ArrayList<Entry>) event.getAccountingEntries();
                 resultingEntriesofAllEvents.addAll(resultingEntries);
-                
-            }
-            
-            
-            String columns[] ={"Employee ID", "Amount" , "Entry Time", "Event Time", "Event Type"};
-            Object[][] resultingEntriesData=new Object[resultingEntriesofAllEvents.size()][5];
-            for ( int i=0; i<resultingEntriesofAllEvents.size(); i++){
-                resultingEntriesData[i][0]=resultingEntriesofAllEvents.get(i).getEmployee().getEmployeeId();
-                resultingEntriesData[i][1]=resultingEntriesofAllEvents.get(i).getAmount();
-                resultingEntriesData[i][2]=TimeParser.parseTime(resultingEntriesofAllEvents.get(i).getEntryTime());
-                resultingEntriesData[i][3]=TimeParser.parseTime(resultingEntriesofAllEvents.get(i).getEventTime());
-                resultingEntriesData[i][4]=resultingEntriesofAllEvents.get(i).getEventType().toString();
 
             }
-            
-            Employee currEmployee=(Employee) employeeIDCombobox.getSelectedItem();
-            ArrayList<Account> employeeAccounts = (ArrayList<Account>)(currEmployee.getEmployeeAccountsList());
-            
-            
-            String columns2[] ={"employee ID", "Amount" , "Entry Time", "Event Time"};
+
+            String columns[] = {"Employee ID", "Amount(£)", "Entry Time", "Event Time", "Event Type"};
+            Object[][] resultingEntriesData = new Object[resultingEntriesofAllEvents.size()][5];
+            for (int i = 0; i < resultingEntriesofAllEvents.size(); i++) {
+                resultingEntriesData[i][0] = resultingEntriesofAllEvents.get(i).getEmployee().getEmployeeId();
+                resultingEntriesData[i][1] = resultingEntriesofAllEvents.get(i).getAmount();
+                resultingEntriesData[i][2] = TimeParser.parseTime(resultingEntriesofAllEvents.get(i).getEntryTime());
+                resultingEntriesData[i][3] = TimeParser.parseTime(resultingEntriesofAllEvents.get(i).getEventTime());
+                EventType eventType = resultingEntriesofAllEvents.get(i).getEventType();
+                String eventTypeStirng="";
+                if (eventType == EventType.RegularHours) {
+                    eventTypeStirng = "Regular Hours ("+ regularHours+" h)";
+                } else if (eventType == EventType.OvertimeHours){
+                    eventTypeStirng = "Overtime Hours ("+ overtimeHours+" h)";
+                }
+                resultingEntriesData[i][4] = eventTypeStirng;
+
+            }
+
+            Employee currEmployee = (Employee) employeeIDCombobox.getSelectedItem();
+            ArrayList<Account> employeeAccounts = (ArrayList<Account>) (currEmployee.getEmployeeAccountsList());
+
+            String columns2[] = {"Employee ID", "Amount(£)", "Entry Time", "Event Time"};
             ArrayList<Entry> allAccouEntries = new ArrayList<Entry>();
-            for ( int i=0; i<employeeAccounts.size(); i++){
-                
+            for (int i = 0; i < employeeAccounts.size(); i++) {
+
                 Account account = employeeAccounts.get(i);
-                ArrayList<Entry> entries = (ArrayList<Entry> ) account.getAccountEntries();
+                ArrayList<Entry> entries = (ArrayList<Entry>) account.getAccountEntries();
                 allAccouEntries.addAll(entries);
-               
+
             }
-            
-            Object[][] allAccouEntriesData=new Object[allAccouEntries.size()][4];
-            for ( int i=0; i<allAccouEntries.size(); i++){
-                allAccouEntriesData[i][0]=allAccouEntries.get(i).getEmployee().getEmployeeId();
-                allAccouEntriesData[i][1]=allAccouEntries.get(i).getAmount();
-                allAccouEntriesData[i][2]=TimeParser.parseTime(allAccouEntries.get(i).getEntryTime());
-                allAccouEntriesData[i][3]=TimeParser.parseTime(allAccouEntries.get(i).getEventTime());
+
+            Object[][] allAccouEntriesData = new Object[allAccouEntries.size()][4];
+            totalAmount = 0.0;
+            for (int i = 0; i < allAccouEntries.size(); i++) {
+                allAccouEntriesData[i][0] = allAccouEntries.get(i).getEmployee().getEmployeeId();
+                allAccouEntriesData[i][1] = allAccouEntries.get(i).getAmount();
+                totalAmount+=allAccouEntries.get(i).getAmount();
+                allAccouEntriesData[i][2] = TimeParser.parseTime(allAccouEntries.get(i).getEntryTime());
+                allAccouEntriesData[i][3] = TimeParser.parseTime(allAccouEntries.get(i).getEventTime());
             }
-            
-            
+
             DefaultTableModel defaultTableModel = new DefaultTableModel(resultingEntriesData, columns);
             DefaultTableModel aggregatedTableModel = new DefaultTableModel(allAccouEntriesData, columns2);
-            
+
             entryTable.setModel(defaultTableModel);
             aggregatedEntryList.setModel(aggregatedTableModel);
-        
+            
+            totalAmountLabel.setText(totalAmount +"");
+
         } catch (Exception ex) {
             Logger.getLogger(CATPayrollView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-    }//GEN-LAST:event_simulateEventButtonActionPerformed
+    }
 
+    private void performBonusEvent() {
+        double totalAmount =0.0;
+
+        try {
+            // TODO add your handling code here:
+            ArrayList<Event> events = createBonusEvent(Double.parseDouble(hourWorkedTextField.getText()), (Employee) employeeIDCombobox.getSelectedItem());
+            ArrayList<Entry> resultingEntriesofAllEvents = new ArrayList<Entry>();
+
+            for (Event event : events) {
+
+                event.process();
+                ArrayList<Entry> resultingEntries = (ArrayList<Entry>) event.getAccountingEntries();
+                resultingEntriesofAllEvents.addAll(resultingEntries);
+
+            }
+
+            String columns[] = {"Employee ID", "Amount(£)", "Entry Time", "Event Time", "Event Type"};
+            Object[][] resultingEntriesData = new Object[resultingEntriesofAllEvents.size()][5];
+            for (int i = 0; i < resultingEntriesofAllEvents.size(); i++) {
+                resultingEntriesData[i][0] = resultingEntriesofAllEvents.get(i).getEmployee().getEmployeeId();
+                resultingEntriesData[i][1] = resultingEntriesofAllEvents.get(i).getAmount();
+                resultingEntriesData[i][2] = TimeParser.parseTime(resultingEntriesofAllEvents.get(i).getEntryTime());
+                resultingEntriesData[i][3] = TimeParser.parseTime(resultingEntriesofAllEvents.get(i).getEventTime());
+                EventType eventType = resultingEntriesofAllEvents.get(i).getEventType();
+                resultingEntriesData[i][4] = eventType.toString();
+
+            }
+
+            Employee currEmployee = (Employee) employeeIDCombobox.getSelectedItem();
+            ArrayList<Account> employeeAccounts = (ArrayList<Account>) (currEmployee.getEmployeeAccountsList());
+
+            String columns2[] = {"Employee ID", "Amount(£)", "Entry Time", "Event Time"};
+            ArrayList<Entry> allAccouEntries = new ArrayList<Entry>();
+            for (int i = 0; i < employeeAccounts.size(); i++) {
+
+                Account account = employeeAccounts.get(i);
+                ArrayList<Entry> entries = (ArrayList<Entry>) account.getAccountEntries();
+                allAccouEntries.addAll(entries);
+
+            }
+
+            Object[][] allAccouEntriesData = new Object[allAccouEntries.size()][4];
+            totalAmount = 0.0;
+            for (int i = 0; i < allAccouEntries.size(); i++) {
+                allAccouEntriesData[i][0] = allAccouEntries.get(i).getEmployee().getEmployeeId();
+                allAccouEntriesData[i][1] = allAccouEntries.get(i).getAmount();
+                totalAmount+=allAccouEntries.get(i).getAmount();
+                allAccouEntriesData[i][2] = TimeParser.parseTime(allAccouEntries.get(i).getEntryTime());
+                allAccouEntriesData[i][3] = TimeParser.parseTime(allAccouEntries.get(i).getEventTime());
+            }
+
+            DefaultTableModel defaultTableModel = new DefaultTableModel(resultingEntriesData, columns);
+            DefaultTableModel aggregatedTableModel = new DefaultTableModel(allAccouEntriesData, columns2);
+
+            entryTable.setModel(defaultTableModel);
+            aggregatedEntryList.setModel(aggregatedTableModel);
+            
+            totalAmountLabel.setText(totalAmount+"");
+
+        } catch (Exception ex) {
+            Logger.getLogger(CATPayrollView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void employeeIDComboboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeIDComboboxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_employeeIDComboboxActionPerformed
+
+    private void eventTypeComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_eventTypeComboBoxItemStateChanged
+        // TODO add your handling code here:
+        String eventString = eventTypeComboBox.getSelectedItem().toString();
+        if (eventString == "Working Hours") {
+            jLabel6.setText("Working Hours");
+        } else if (eventString == "Bonus Payment") {
+            jLabel6.setText("Bonus Amount");
+        }
+    }//GEN-LAST:event_eventTypeComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -511,8 +648,7 @@ public class CATPayrollView extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CATPayrollView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -529,6 +665,7 @@ public class CATPayrollView extends javax.swing.JFrame {
     private javax.swing.JTable entryTable;
     private javax.swing.JComboBox eventTypeComboBox;
     private javax.swing.JTextField hourWorkedTextField;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -542,6 +679,8 @@ public class CATPayrollView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private CATPayrollSystem.SeniorDeveloperOverTimeRule seniorDeveloperOverTimeRule1;
     private javax.swing.JButton simulateEventButton;
+    private javax.swing.JLabel totalAmountLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,8 +15,8 @@ public class BonusPaymentEvent extends Event{
 
     private double bonusPaid;
     
-    public BonusPaymentEvent(EventType eventType, Date eventDate, Employee employee, double bonusPaid) {
-        super(eventType, eventDate, employee);
+    public BonusPaymentEvent(Date eventDate, Employee employee, double bonusPaid) {
+        super(EventType.BonusPayment, eventDate, employee);
         this.bonusPaid = bonusPaid;
     }
 

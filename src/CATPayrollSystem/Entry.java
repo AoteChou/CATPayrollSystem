@@ -93,6 +93,7 @@ public class Entry {
     public EventType getEventType() {
         return eventType;
     }
+    
 
     /**
      * @param eventType the eventType to set
